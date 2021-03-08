@@ -1,0 +1,45 @@
+#include <string>
+#include <vector>
+#include <stack>
+
+using namespace std;
+
+
+int solution(vector<vector<int>> board, vector<int> moves) { // 15351213
+    int answer = 0;
+    int j=0;
+    
+    stack<int> s;
+    while(true){
+        int i=0;
+        
+        if(j == moves.size())
+            break;
+        
+        
+        while( i< board.size()-1 && board[i][moves[j]-1] == 0){
+            i++;
+        }
+        
+        int check = board[i][moves[j]-1];
+
+        
+        if(!s.empty() && check == s.top() && check != 0 ) {
+            s.pop();
+            answer += 2;
+         
+        }
+        else{
+            s.push(board[i][moves[j]-1]);
+    
+        }
+        
+           board[i][moves[j]-1] = 0;
+        
+        j++; 
+        
+    }
+    
+    
+    return answer;
+}
