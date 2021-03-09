@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+	string s;
+
+	cin >> s;
+
+	int result = s.length();	
+
+	for (int i = 0; i < s.length(); i++) {
+		switch (s[i]) {
+		case '-':
+		case '=':
+			result--;
+			break;
+		case 'l':
+			if (s[i + 1] == 'j' && i < s.length() - 1) result--;
+			
+
+			break;
+		case 'd':
+			if (s[i + 1] == 'z' && i < s.length() - 1) {
+				if (i < s.length() - 2 && s[i + 2] == '-' || s[i + 2] == '=')
+					result--;
+			}
+			break;
+		case 'n':
+			if (s[i + 1] == 'j' && i < s.length() - 1) result--;
+				
+
+			break;
+		default :
+			break;
+		}
+	}
+	cout << result << endl;
+
+}	
