@@ -1,0 +1,23 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int N;
+
+	cin >> N; // N <= 1,000,000,000
+
+	int k = 1;	
+
+	while (true) {
+		int e = (3 * k*k) - (3 * k) + 1;
+
+		if (N <= e) {
+			break;
+		}
+		k++;
+	}
+
+	cout << k << endl;
+
+}
