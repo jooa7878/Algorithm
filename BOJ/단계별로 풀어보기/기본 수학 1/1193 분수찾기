@@ -1,0 +1,45 @@
+#include <iostream>
+#include <string>
+#include <stack>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+
+int main()
+{
+	int N;
+
+	cin >> N;
+
+	/*
+		1, 3, 6,10 15, 21, 27 ...
+		  2  3  4
+
+		   = (n * (n-1) /2) + n
+ 	*/
+
+	int sum;
+	int num = 0;
+
+	while (true)
+	{
+		sum = (num * (num - 1) / 2) + num;
+		if (sum >= N)
+			break;
+		num++;
+	}
+
+	int sub = sum - N; 
+
+	if (num % 2 == 0)
+	{
+		cout << num -sub << '/' << 1+sub << '\n';
+	}
+	else
+	{
+		cout << 1+sub << '/' << num - sub<< '\n';
+	}
+	
+}
