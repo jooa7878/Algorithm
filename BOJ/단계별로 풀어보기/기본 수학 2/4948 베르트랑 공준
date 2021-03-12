@@ -1,0 +1,52 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int check_pnum(int num)
+{
+	int result = 0;
+
+	for (int i = num+1; i <= 2 * num; i++)
+	{
+		int cnt = 0;
+		for (int j = 2; j <= sqrt(i); j++)
+		{
+			if (i % j == 0)
+			{
+				cnt++;
+				break;
+			}
+		}
+		if (cnt == 0)
+			result++;
+	}
+
+	return result;
+}
+
+void solution()
+{
+	int N;
+
+	while (true)
+	{
+		cin >> N;
+
+		if (N == 0) break;
+	
+		cout << check_pnum(N) << '\n';
+	}
+	
+}
+
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	
+	solution();
+}
+
