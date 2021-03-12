@@ -1,0 +1,23 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int T, H, W, N;
+
+	cin >> T;
+
+	for (int i = 0; i < T; i++) {
+		cin >> H >> W >> N;
+		int room = N / H + 1;
+		int floor = N % H;
+		if (floor == 0) {
+			floor = H;
+			room--;
+		}
+		if (room < 10)
+			cout << floor << 0 << room << endl;
+		else
+			cout << floor << room << endl;
+	}
+}
