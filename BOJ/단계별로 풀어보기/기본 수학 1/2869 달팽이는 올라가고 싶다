@@ -1,0 +1,19 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int A, B, V;
+
+	cin >> A >> B >> V;
+	int day = (V - A) / (A - B);
+	int distance = day * (A - B);
+	
+	if (V - distance > A) {
+		day += ((V - distance) / A) + 1;
+	}
+	else {
+		day += (V - distance) / A;
+	}
+	cout << day << endl;
+}
