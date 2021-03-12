@@ -1,0 +1,51 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int X1, X2, X3, Y1, Y2, Y3;
+
+	cin >> X1 >> Y1;
+
+	cin >> X2 >> Y2;
+
+	cin >> X3 >> Y3;
+
+	if (X1 == X2) {
+		if (Y1 == Y2) {
+			cout << X3 << " " << Y3 << '\n';
+		}
+		else {
+			if (Y1 == Y3) {
+				cout << X3 << " " << Y2 << '\n';
+			}
+			else {
+				cout << X3 << " " << Y1 << '\n';
+			}
+		}
+	}
+	else if (X1 == X3) {
+		if (Y1 == Y2) {
+			cout << X2 << " " << Y3 << '\n';
+		}
+		else if (Y1 == Y3) {
+			cout << X2 << " " << Y2 << '\n';
+		}
+		else {
+			cout << X2 << " " << Y1 << '\n';
+		}
+	}
+	else {
+		if (Y1 == Y2) {
+			cout << X1 << " " << Y3 << '\n';
+		}
+		else if (Y1 == Y3) {
+			cout << X1 << " " << Y2 << '\n';
+		}
+		else {
+			cout << X1 << " " << Y1 << '\n';
+		}
+
+	}
+	
+}
