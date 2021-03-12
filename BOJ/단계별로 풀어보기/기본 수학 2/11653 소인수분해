@@ -1,0 +1,32 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <stack>
+
+using namespace std;
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+		
+	int N;
+	cin >> N;
+
+	int idx = 2;
+	while (N > 1)
+	{
+		if (N % idx == 0)
+		{
+			cout << idx << '\n';
+			N /= idx;
+		}
+		else
+		{
+			idx++;
+		}
+	}
+
+}
