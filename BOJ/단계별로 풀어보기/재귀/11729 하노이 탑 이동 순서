@@ -1,0 +1,49 @@
+#include <algorithm>
+#include <vector>
+#include <iostream>
+#include <string>
+#include <utility>
+
+using namespace std;
+
+
+void print_hanoi(int n, int from, int by, int to)
+{
+	if (n == 1)
+	{
+		cout << from << ' ' << to << '\n';
+	}
+	else
+	{
+		print_hanoi(n - 1, from, to, by);
+		cout << from << ' ' << to << '\n';
+		print_hanoi(n - 1, by, from, to);
+	
+	}
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int N;
+
+	cin >> N;
+
+	int arr[30];
+	arr[0] = 0;
+	arr[1] = 1;
+
+	for (int i = 2; i < 30; i++)
+	{
+		arr[i] = (2 * arr[i - 1]) + 1;
+	}
+	
+
+	cout << arr[N] << '\n';
+	print_hanoi(N, 1, 2, 3);
+}
+
+
