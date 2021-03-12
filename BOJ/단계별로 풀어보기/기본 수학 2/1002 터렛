@@ -1,0 +1,33 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	cin.tie(NULL);
+
+	double T, X1, X2, Y1, Y2, R1, R2;
+	cin >> T;
+	for (int i = 0; i < T; i++) {
+
+		cin >> X1 >> Y1 >> R1 >> X2 >> Y2 >> R2;
+
+		if( X1 == X2 && Y1 == Y2 && R1 == R2){
+			cout << -1 << '\n';
+		}
+		else {
+			if (sqrt(((X2 - X1) *(X2 - X1)) + ((Y2 - Y1)*(Y2 - Y1))) < R1 + R2 && sqrt(((X2 - X1) *(X2 - X1)) + ((Y2 - Y1)*(Y2 - Y1))) > abs(R1 - R2)) {
+				cout << 2 << '\n';
+			}
+			else if (sqrt(((X2 - X1) *(X2- X1))+((Y2 - Y1)*(Y2 - Y1))) == R1 + R2 || sqrt(((X2 - X1) *(X2 - X1)) + ((Y2 - Y1)*(Y2 - Y1))) == abs(R1 - R2)) {
+				cout << 1 << '\n';
+			}
+			else {
+				cout << 0 << '\n';
+			}
+		}
+		
+
+		
+	}
+} 
