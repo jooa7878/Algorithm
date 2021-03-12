@@ -1,0 +1,51 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int X, Y, W, H;
+
+	cin >> X >> Y >> W >> H;
+
+	if (H - Y < Y) {
+		if (W - X < X ) {
+			if (H - Y < W - X) {
+				cout << H - Y << '\n';
+			}
+			else {
+				cout << W - X << '\n';
+			}
+		}
+		else {
+			if (H - Y < X) {
+				cout << H - Y << '\n';
+			}
+			else {
+				cout << X << '\n';
+			}
+
+		}
+	}
+	else {
+		if (W - X < X) {
+			if (Y < W - X) {
+				cout << Y << '\n';
+			}
+			else {
+				cout << W - X << '\n';
+			}
+
+		}
+		else {
+			if (Y  < X ) {
+				cout << Y << '\n';
+			}
+			else {
+				cout << X << '\n';
+			}
+
+		}
+	}
+
+	
+}
