@@ -1,0 +1,18 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	cin.tie(NULL);
+	size_t R;
+	
+	const double PI = 3.1415926535897932384626;
+
+	cin >> R;
+
+	cout.fixed;
+	cout.precision(20);
+
+	cout << (double) (PI * R  * R) << '\n';
+	cout << R * R * 2 << '\n';
+} 
