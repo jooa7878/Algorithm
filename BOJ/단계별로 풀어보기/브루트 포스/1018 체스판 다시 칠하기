@@ -1,0 +1,93 @@
+#include <algorithm>
+#include <vector>
+#include <iostream>
+#include <string>
+#include <utility>
+
+using namespace std;
+
+int diff_count(char arr1[8][8], char arr2[8][8], vector<vector<char>> vec)
+{
+	int count_1 = 0;
+	int count_2 = 0;
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (arr1[i][j] != vec[i][j])
+				count_1++;
+			if (arr2[i][j] != vec[i][j])
+				count_2++;
+		}
+	}
+
+	return count_1 > count_2 ? count_2 : count_1;
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int N, M;
+
+
+	cin >> N >> M;
+
+	char arr1[8][8] = { {'W','B','W','B','W','B','W','B'},
+						{'B','W','B','W','B','W','B','W'},
+						{'W','B','W','B','W','B','W','B'},
+						{'B','W','B','W','B','W','B','W'},
+						{'W','B','W','B','W','B','W','B'},
+						{'B','W','B','W','B','W','B','W'},
+						{'W','B','W','B','W','B','W','B'},
+						{'B','W','B','W','B','W','B','W'}
+						};
+
+	char arr2[8][8] = { {'B','W','B','W','B','W','B','W'},
+						{'W','B','W','B','W','B','W','B'},
+						{'B','W','B','W','B','W','B','W'},
+						{'W','B','W','B','W','B','W','B'}, 
+						{'B','W','B','W','B','W','B','W'},
+						{'W','B','W','B','W','B','W','B'},
+						{'B','W','B','W','B','W','B','W'},
+						{'W','B','W','B','W','B','W','B'}
+						};
+
+	vector<vector<char>> vec(N,vector<char>(M));
+
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < M; j++)
+		{
+			cin >> vec[i][j];
+		}
+	}
+
+	int answer = 210000;
+	vector<vector<char>> v(8, vector<char>(8));
+	
+
+	for (int i = 0; i <= N - 8; i++)
+	{
+		for (int j = 0; j <= M - 8; j++)
+		{
+			
+			for (int idx = i, k=0; idx < i + 8; idx++, k++)
+			{
+				for (int jdx = j, h=0; jdx < j + 8; jdx++, h++)
+				{
+					v[k][h] = vec[idx][jdx];
+				}
+			}
+			if (answer > diff_count(arr1, arr2, v)) {
+				answer = diff_count(arr1,arr2,v);
+			}			
+		}
+	}
+	
+	cout << answer << '\n';
+}
+
