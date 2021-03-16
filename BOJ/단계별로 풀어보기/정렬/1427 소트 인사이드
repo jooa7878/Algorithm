@@ -1,0 +1,29 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	
+
+	int N;
+	cin >> N;
+	vector<int> vec;
+
+	while (N)
+	{
+		vec.push_back(N % 10);
+		N /= 10;
+	}
+	sort(vec.begin(), vec.end(), greater<int>());
+
+	for (auto&a : vec)
+	{
+		cout << a;
+	}
+}
