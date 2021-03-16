@@ -1,0 +1,40 @@
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	cin.tie(NULL);
+
+	int N;
+
+	cin >> N;
+
+	vector<int> vec(N);
+
+	for (int i = 0; i < N; i++)
+	{
+		cin >> vec[i];
+	}
+
+	for (int i = 0; i < vec.size(); i++)
+	{
+		for (int j = i+1; j < vec.size(); j++) 
+		{		
+			if(vec[i] > vec[j])
+			{
+				int temp = vec[i];
+				vec[i] = vec[j];
+				vec[j] = temp;
+			}
+		}
+	}
+
+	for (auto& a : vec)
+	{
+		cout << a << '\n';
+	}
+
+
+}
