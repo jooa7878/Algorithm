@@ -1,0 +1,90 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+int N;
+double avg;
+int middle;
+int range;
+int p[4001];
+int m[4001];
+int arr[500001];
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	
+	cin >> N;
+	
+	int num = 0;
+	int count= 0;
+	int frequency =0;
+
+	for (int i = 0; i < N; i++)
+	{
+		cin >> arr[i];
+		num += arr[i];
+		if (arr[i] >= 0)
+		{
+			p[arr[i]]++;
+			if (p[arr[i]] > frequency)
+			{
+				frequency = p[arr[i]];
+			}
+		}
+		else
+		{
+			m[arr[i] * -1]++;
+			if (m[arr[i] * -1] > frequency)
+			{
+				frequency = m[arr[i] * -1];
+			}
+
+		}
+	}
+
+	sort(arr, arr + N);
+
+	avg = round((double)num /(double) N);
+	middle = arr[N / 2];
+	range = arr[N - 1] - arr[0];
+	int m_fre = 0;
+
+	for (int i = 4000; i>=0; i--)
+	{
+		if (m[i] == frequency)
+		{
+			count++;
+			m_fre = i * -1;
+			if (count == 2)
+			{
+				m_fre = i * -1;
+				break;
+			}
+		}
+	}
+	if (count < 2)
+	{
+		for (int i = 0; i<4001 ; i++)
+		{
+			if (p[i] == frequency)
+			{
+				count++;
+				m_fre = i;
+				if (count == 2)
+				{
+					m_fre = i;
+					break;
+				}
+			}
+		}
+	}
+	cout << avg << '\n' << middle << '\n' <<  m_fre<< '\n'<< range;
+}
+
