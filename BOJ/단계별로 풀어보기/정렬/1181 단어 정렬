@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+#include <stack>
+#include <vector>
+#include <algorithm>
+#include <utility>
+
+using namespace std;
+
+bool cmp(string a, string b)
+{
+	return a.length() < b.length();
+}
+
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	
+
+	int N;
+	cin >> N;
+
+	vector<string> vec(N);
+	for (int i = 0; i < N; i++)
+	{
+		cin >> vec[i];
+	}
+
+	
+	stable_sort(vec.begin(), vec.end());
+	stable_sort(vec.begin(), vec.end(), cmp);
+	vec.erase(unique(vec.begin(), vec.end()), vec.end());
+	for (auto& a : vec)
+	{
+		cout << a << '\n';
+	}
+
+}
