@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <stack>
+
+using namespace std;
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	vector<pair<int, int>> vec(41);
+
+	vec[0].first = 1;
+	vec[0].second = 0;
+	vec[1].first = 0;
+	vec[1].second = 1;
+
+	for (int i = 2; i < 41; i++)
+	{
+		vec[i].first = vec[i - 1].first + vec[i - 2].first;
+		vec[i].second = vec[i - 1].second + vec[i - 2].second;
+	}
+		
+	int T;
+
+	cin >> T;
+
+	for (int i = 0; i < T; i++)
+	{
+		int num;
+		cin >> num;
+		cout << vec[num].first << ' ' << vec[num].second << '\n';
+	}
+
+}
