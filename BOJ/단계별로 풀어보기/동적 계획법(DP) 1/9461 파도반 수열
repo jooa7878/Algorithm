@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <stack>
+
+using namespace std;
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	vector<unsigned long long> vec(101);
+	vec[1] = 1;
+	vec[2] = 1;
+	vec[3] = 1;
+
+	for (int i = 4; i < 101; i++)
+	{
+		vec[i] = vec[i - 2] + vec[i - 3];
+	}
+
+	int T;
+
+	cin >> T;
+
+	for (int i = 0; i < T; i++)
+	{
+		int N;
+		cin >> N;
+		cout << vec[N] << '\n';
+	}
+}
