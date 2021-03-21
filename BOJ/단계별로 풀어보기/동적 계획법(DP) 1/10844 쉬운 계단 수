@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+
+using namespace std;
+/*	
+	백준 10844
+	i의 N자리 계단 수 만드는 방법
+	= i-1, i+1로 i-1자리 만드는 방법
+	2차원벡터가 필요할듯 ?
+
+*/
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int N;
+
+	cin >> N;
+
+	unsigned long arr[101][12];
+	for (int i = 0; i <= N; i++)
+	{
+		arr[i][11] = 0;
+		arr[i][0] = 0;
+	}
+
+	for (int i = 1; i < 11; i++)
+	{
+		arr[0][i] = 1;
+	}
+
+	for (int i = 1; i <= N; i++)
+	{
+		for (int j = 1; j < 11; j++)
+		{
+			arr[i][j] = arr[i - 1][j - 1] + arr[i - 1][j + 1] % 1000000000;
+	
+		}
+	}	
+
+	unsigned long answer = 0;
+	for (int i = 2; i <11; i++)
+	{
+		answer += arr[N-1][i];
+	}
+
+	cout << answer % 1000000000 << '\n';
+
+}
+
