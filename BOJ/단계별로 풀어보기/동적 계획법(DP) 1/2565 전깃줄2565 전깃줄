@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+
+using namespace std;
+
+/*	
+	백준 2565
+
+*/
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int N;
+	cin >> N;
+
+	vector<pair<int, int>> vec(N + 1);
+	
+	int answer = 0;
+
+	int dp[501] = { 0, };
+
+	vec[0].first = 0;
+	vec[0].second = 0;
+
+	for (int i = 1; i <= N; i++)
+	{
+		cin >> vec[i].first >> vec[i].second;
+	}
+
+	sort(vec.begin(), vec.end());
+
+
+	for (int i = 1; i <= N; i++)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			if (vec[i].second > vec[j].second)
+			{
+				if (dp[j] >= dp[i])
+				{
+					dp[i] = dp[j] + 1;
+				}
+			}
+		}
+		answer = max(answer, dp[i]);
+	} 
+
+	cout << N-answer;
+
+}
+
