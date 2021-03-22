@@ -1,0 +1,78 @@
+#ifndef max
+#define max(a,b)            (((a) > (b)) ? (a) : (b))
+#endif
+
+#include <iostream>
+using namespace std;
+
+
+/*
+	TC 1: 
+4 7
+6 13
+4 8
+3 6
+5 12
+
+>>0 13 13 14 14
+
+	TC 2:
+5 10
+6 10
+5 8
+3 9
+2 3
+4 6
+
+>> 0 10 10 17 20 20
+
+	TC 3:
+5 10
+6 10
+5 8
+3 9
+4 6
+2 3
+
+>> 0 10 10 17 17 20
+*/
+
+int dp[101][100001];
+int W[101];
+int V[101];
+int N, K;
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+
+	cin >> N >> K;
+
+
+	for (int i = 1; i <= N; i++)
+	{
+		cin >> W[i] >> V[i];
+	}
+	
+	
+	for (int i = 1; i <= N; i++)
+	{
+		for (int j = 1; j <= K; j++)
+		{
+			if (W[i] <= j)
+			{
+				dp[i][j] = max(dp[i - 1][j], V[i] + dp[i - 1][j - W[i]]);
+			}
+			else
+			{
+				dp[i][j] = dp[i - 1][j];
+			}
+		}
+	}
+
+	cout << dp[N][K];
+}
+
