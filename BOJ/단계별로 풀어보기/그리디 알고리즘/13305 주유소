@@ -1,0 +1,50 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <stack>
+
+using namespace std;
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int N;
+	cin >> N;
+
+	vector<unsigned long long> distance(N);
+	vector<unsigned long long> fee(N);
+
+	distance[0] = 0;
+	for (int i = 1; i < N; i++)
+	{
+		cin >> distance[i];
+	}
+
+	for (int i = 0; i < fee.size(); i++)
+	{
+		cin >> fee[i];
+	}
+
+	int prev = 0;
+	int next = 1;
+	unsigned long long total = 0;
+	
+	while (next <distance.size())
+	{
+
+		total += (fee[prev] * distance[next]);
+
+		if (fee[prev] > fee[next])
+		{
+			prev = next;
+		}
+		next++;
+	}
+
+	cout << total << '\n';
+
+}
