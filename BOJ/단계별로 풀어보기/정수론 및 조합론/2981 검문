@@ -1,0 +1,62 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+/*
+	A[1] % M = A[1] - (A[1]/M) *M
+	A[N] % M = A[N] - (A[N]/M) *M
+
+*/
+int N;
+
+int gcd(int a, int b)
+{
+	return b == 0 ? a : gcd(b, a%b);
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+	vector<long long> vec(N);
+	vector<long long> M;
+
+	for (int i = 0; i < N; i++)
+	{
+		cin >> vec[i];
+	}
+
+	sort(vec.begin(), vec.end());
+
+	int G = vec[1] - vec[0];
+
+	for (int i = 2; i < N; i++)
+	{
+		G = gcd(G, vec[i]- vec[i - 1]);
+	}
+
+	for (int i = 2; i <= sqrt(G); i++)
+	{
+		if (G % i == 0)
+		{
+			M.push_back(i);
+			M.push_back(G / i);
+		}
+	}
+
+	M.push_back(G);
+	sort(M.begin(), M.end());
+	M.erase(unique(M.begin(), M.end()), M.end());
+
+	for (auto& a : M)
+	{
+		cout << a << ' ';
+	}
+}
+
