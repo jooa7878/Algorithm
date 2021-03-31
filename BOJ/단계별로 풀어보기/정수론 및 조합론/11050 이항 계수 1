@@ -1,0 +1,39 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+
+#define endl '\n'
+
+using namespace std;
+
+/*
+	A[1] % M = A[1] - (A[1]/M) *M
+	A[N] % M = A[N] - (A[N]/M) *M
+
+*/
+int N, K;
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N >> K;
+
+	int answer = 1;
+
+	for (int i = N; i > N-K; i--)
+	{
+		answer *= i;
+	}
+
+	for (int j = 1; j <= K; j++)
+	{
+		answer /= j;
+	}
+
+	cout << answer;
+}
+
