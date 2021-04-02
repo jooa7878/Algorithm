@@ -1,0 +1,44 @@
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+#include <cmath>
+#include <string>
+
+#define endl '\n'
+
+using namespace std;
+
+/*
+	A[1] % M = A[1] - (A[1]/M) *M
+	A[N] % M = A[N] - (A[N]/M) *M
+*/
+
+int N, answer;
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+
+	for (int i = 1; i <= N; i++)
+	{
+		if (i % 125 == 0)
+		{
+			answer += 3;
+		}
+		else if (i % 25 ==0)
+		{
+			answer += 2;
+		}
+		else if (i % 5 == 0)
+		{
+			answer++;
+		}
+	}
+
+	cout << answer;
+}
+
