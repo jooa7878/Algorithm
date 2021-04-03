@@ -1,0 +1,56 @@
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+
+#define endl '\n'
+
+using namespace std;
+
+/*
+	A[1] % M = A[1] - (A[1]/M) *M
+	A[N] % M = A[N] - (A[N]/M) *M
+*/
+
+int N, K, answer;
+long long cnt_5, cnt_2;
+
+int five_count(int num)
+{
+	int result = 0;
+	for (int i = 1; i < 14; i++)
+	{
+		result += num / pow(5, i);
+	}
+
+	return result;
+}
+
+int two_count(int num)
+{
+	int result = 0;
+	for (int i = 1; i < 32; i++)
+	{
+		result += num / pow(2, i);
+	}
+
+	return result;
+
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N >> K;
+
+	cnt_5 = five_count(N) - five_count(N - K) - five_count(K);
+	cnt_2 = two_count(N) - two_count(N - K) - two_count(K);
+
+	if (cnt_5 <= cnt_2)
+		cout << cnt_5;
+	else
+		cout << cnt_2;
+}
+
