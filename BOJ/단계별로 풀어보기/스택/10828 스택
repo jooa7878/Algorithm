@@ -1,0 +1,68 @@
+#include <iostream>
+#include <string>
+#include <stack>
+
+using namespace std;
+
+stack<int> s;
+
+void cmdline(string cmd, int num)
+{
+	if (cmd == "push")
+	{
+		s.push(num);
+	}
+	else if (cmd == "top")
+	{
+		if (s.empty())
+			cout << -1 << '\n';
+		else
+			cout << s.top() << '\n';
+	}
+	else if (cmd == "size")
+	{
+		cout << s.size() << '\n';
+	}
+	else if (cmd == "pop")
+	{
+		if (s.empty())
+			cout << -1 << '\n';
+		else {
+			cmdline("top", num);
+			s.pop();
+		}
+	}
+	else if (cmd == "empty")
+	{
+		if (s.empty())
+			cout << 1 << '\n';
+		else
+			cout << 0 << '\n';
+	}
+
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int N;
+
+	cin >> N;
+	
+	for (int i = 0; i < N; i++)
+	{
+		string cmd;
+		int num = 0;
+		cin >> cmd;
+
+		if (cmd == "push") 
+		{
+			cin >> num;
+		}
+		cmdline(cmd, num);
+			
+	}
+}
