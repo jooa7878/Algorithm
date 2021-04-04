@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string>
+#include <stack>
+
+using namespace std;
+
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int K;
+
+	cin >> K;
+	
+	stack<int> s;
+	int total = 0;
+
+	for (int i = 0; i < K; i++)
+	{
+		int num;
+		cin >> num;
+
+		if (num == 0)
+		{
+			if (!s.empty()) 
+			{
+				total -= s.top();
+				s.pop();
+			}
+		}
+		else
+		{
+			total += num;
+			s.push(num);
+		}
+	}
+
+	cout << total << '\n';
+}
