@@ -1,0 +1,54 @@
+#include <iostream>
+#include <string>
+#include <stack>
+#include <vector>
+
+using namespace std;
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int n;
+
+	cin >> n;
+	
+	vector<int> vec(n);
+	stack<int> stk;
+	string s = "";
+
+	for (int i = 0; i < n; i++)
+	{
+		cin >> vec[i];
+	}
+
+	int i = 1;
+	int j = 0;
+	int rep = 0;
+	while (rep<n) {
+		
+		while (i <= vec[j])
+		{
+			stk.push(i);
+			s += "+\n";
+			i++;
+		}
+		if (stk.top() == vec[j])
+		{
+			stk.pop();
+			s += "-\n";
+		}
+		else
+		{
+			s = "NO\n";
+			break;
+		}
+		j++;
+		rep++;
+	}
+
+	cout << s;
+	
+}
+	
