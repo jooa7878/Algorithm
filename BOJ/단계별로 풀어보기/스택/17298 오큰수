@@ -1,0 +1,73 @@
+#include <iostream>
+#include <stack>
+
+#define endl '\n'
+
+using namespace std;
+
+int N;
+int pos;
+stack<int> s;
+int arr[1000001];
+int answer[1000001];
+
+void solution()
+{
+	for (int i = 0; i < N; i++)
+	{
+		cin >> arr[i];
+		s.push(arr[i]);
+	}
+
+	answer[N - 1] = -1;
+	int cmp = s.top();
+	int max = cmp;
+	s.pop();
+
+	int start = N - 2;
+
+	while (!s.empty())
+	{
+		if (cmp > s.top())
+		{
+			answer[start] = cmp	;
+		}
+		else if (s.top() >= max)
+		{
+			answer[start] = -1;
+			max = s.top();
+		}
+		else
+		{
+			for (int i = start; i < N; i++)
+			{
+				if (s.top() < answer[i])
+				{
+					answer[start] = answer[i];
+					break;
+				}
+			}
+		}
+		start--;
+		cmp = s.top();
+		s.pop();
+	}
+
+	for (int i = 0; i < N; i++)
+	{
+		cout << answer[i] << ' ';
+	}
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+
+	solution();
+
+}
+
