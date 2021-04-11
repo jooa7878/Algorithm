@@ -1,0 +1,73 @@
+#include <iostream>
+#include <queue>
+#include <string>
+#define endl '\n'
+
+using namespace std;
+
+int N;
+queue<int> q;
+
+void solution()
+{
+	for (int i = 0; i < N; i++)
+	{
+		string cmd;
+		cin >> cmd;
+		if (cmd == "push")
+		{
+			int num;
+			cin >> num;
+			q.push(num);
+		}
+		else if (cmd == "front")
+		{
+			if (q.empty())
+				cout << -1 << endl;
+			else
+				cout << q.front() << endl;
+		}
+		else if (cmd == "pop")
+		{
+			if (!q.empty()) {
+				int num = q.front();
+				q.pop();
+				cout << num << endl;
+			}
+			else
+				cout << -1 << endl;
+		}
+		else if (cmd == "empty")
+		{
+			if (q.empty())
+				cout << 1 << endl;
+			else
+				cout << 0 << endl;
+		}
+		else if (cmd == "size")
+		{
+			cout << q.size() << endl;
+		}
+		else if (cmd == "back")
+		{
+			if (q.empty())
+				cout << -1 << endl;
+			else
+			cout << q.back() << endl;
+		}
+		
+	}
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+
+	solution();
+
+}
+
