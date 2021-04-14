@@ -1,0 +1,54 @@
+#include <iostream>
+#include <queue>
+#include <string>
+#define endl '\n'
+
+using namespace std;
+
+int N, K;
+queue<int> q;
+int answer[1001];
+
+void solution()
+{
+	for (int i = 1; i <= N; i++)
+	{
+		q.push(i);
+	}
+
+	int loop = 1;
+	int idx = 0;
+	while (loop <= K * N)
+	{
+		int num = q.front();
+		q.pop();
+		if (loop % K == 0)
+		{
+			answer[idx] = num;
+			idx++;
+		}
+		else
+		{
+			q.push(num);
+		}
+		loop++;
+	}
+	cout << "<" << answer[0];
+	for (int i = 1; i < N; i++)
+	{
+		cout << ", " << answer[i];
+	}
+	cout << ">";
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N >> K;
+
+	solution();
+}
+
