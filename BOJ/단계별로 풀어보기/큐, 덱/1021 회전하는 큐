@@ -1,0 +1,73 @@
+#include <iostream>
+#include <deque>
+#include <algorithm>
+#include <cmath>
+
+#define endl '\n'
+
+using namespace std;
+
+int N, M;
+deque<int> q, dq_1, dq_2;
+int arr[51];
+int pos;
+int answer;
+
+void solution()
+{
+	for (int i = 1; i <= N; i++)
+	{
+		q.push_back(i);
+	}
+
+	for (int i = 0; i < M; i++)
+	{
+		cin >> arr[i];
+	}
+
+	while (pos < M)
+	{
+		int left = 0, right = 1;
+		dq_1 = q;
+		dq_2 = q;
+		int l_num = dq_1.front();
+		int r_num = dq_2.back();
+		
+		while (l_num != arr[pos])
+		{
+			dq_1.pop_front();
+			dq_1.push_back(l_num);
+			left++;
+			l_num = dq_1.front();
+		}
+		dq_1.pop_front();
+
+		while (r_num != arr[pos])
+		{
+			dq_2.pop_back();
+			dq_2.push_front(r_num);
+			right++;
+			r_num = dq_2.back();
+		}
+		dq_2.pop_back();
+
+		q = left > right ? dq_2 : dq_1;
+		answer += left > right ? right : left;
+
+		pos++;
+	}
+
+	cout << answer;
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N >> M;
+
+	solution();
+}
+
