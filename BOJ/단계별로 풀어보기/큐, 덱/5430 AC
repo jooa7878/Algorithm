@@ -1,0 +1,108 @@
+#include <iostream>
+#include <deque>
+#include <algorithm>
+#include <string>
+
+#define endl '\n'
+
+using namespace std;
+
+int N, T;
+string P, cmd;
+
+void solution()
+{
+	deque<int> q;
+	int pos = 0;
+
+	cin >> P >> N;
+
+	cin >> cmd;
+	
+	string str = "";
+
+	for (int i = 0; i < cmd.length(); i++)
+	{
+		if (cmd[i] != '[' && cmd[i] != ',' && cmd[i] != ']')
+		{
+			str += cmd[i];
+		}
+		else
+		{
+			if (str != "") 
+				q.push_back(stoi(str));
+			
+			str = "";
+		}
+	}
+
+	bool flag = true;
+
+	while (pos < P.length())
+	{
+		if (P[pos] == 'R')
+		{
+			flag = !flag;
+		}
+		else if (P[pos] == 'D')
+		{
+			if (q.empty())
+			{
+				cout << "error\n";
+				return;
+			}
+
+			if(flag)
+			{
+				q.pop_front();
+			}
+			else
+			{
+				q.pop_back();
+			}
+			
+		}
+		pos++;
+	}
+
+	cout << "[";
+	if (!q.empty())
+	{
+
+		if (flag)
+		{
+			while (q.size() > 1)
+			{
+				cout << q.front() << ",";
+				q.pop_front();
+			}
+			cout << q.front();
+		}
+		else
+		{
+			while (q.size() > 1)
+			{
+				cout << q.back() << ",";
+				q.pop_back();
+			}
+			cout << q.back();
+		}
+
+	}
+	cout << "]\n";
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> T;
+
+	for (int i = 0; i < T; i++)
+	{
+		solution();
+	}
+}
+
