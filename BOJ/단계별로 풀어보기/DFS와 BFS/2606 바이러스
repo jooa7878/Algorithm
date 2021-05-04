@@ -1,0 +1,48 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+
+using namespace std;
+
+const int MAX = 101;
+int N, M, answer;
+bool visited[MAX];
+int adj[MAX][MAX];
+
+
+void dfs(int node) {
+
+	for (int i = 1; i <= N; i++)
+	{
+		if (adj[node][i] == 1 && !visited[i])
+		{
+			visited[i] = 1;
+			answer++;
+			dfs(i);
+		}
+	}
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL); 
+	
+	cin >> N;
+
+	cin >> M;
+
+	for (int i = 0; i < M; i++)
+	{
+		int from, to;
+		cin >> from >> to;
+		adj[from][to] = 1;
+		adj[to][from] = 1;
+	}
+
+	visited[1] = 1;
+
+	dfs(1);
+	cout << answer;
+}
