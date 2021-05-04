@@ -1,0 +1,77 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+
+using namespace std;
+
+const int MAX = 1001;
+int N, M, V;
+bool visited[MAX];
+int adj[MAX][MAX];
+queue<int> q;
+
+
+void dfs(int node) {
+
+	cout << node << ' ';
+
+	for (int i = 1; i <= N; i++)
+	{
+		if (adj[node][i] == 1 && !visited[i])
+		{
+			visited[i] = 1;
+			dfs(i);
+		}
+	}
+
+}
+
+void bfs(int node) {
+	q.push(node);
+	visited[node] = 1;
+
+	while (!q.empty())
+	{
+		int idx = q.front();
+		q.pop();
+
+		cout << idx << ' ';
+		for (int i = 1; i <= N; i++)
+		{
+			if (adj[idx][i] == 1 && !visited[i])
+			{
+				visited[i] = 1;
+				q.push(i);
+			}
+		}
+	}
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL); 
+	
+	cin >> N >> M >> V;
+
+	for (int i = 0; i < M; i++)
+	{
+		int from, to;
+		cin >> from >> to;
+		adj[from][to] = 1;
+		adj[to][from] = 1;
+	}
+
+	visited[V] = 1;
+
+	dfs(V);
+	cout << '\n';
+  
+	for (int i = 0; i < MAX; i++)
+	{
+		visited[i] = false;
+	}
+  
+	bfs(V);
+}
