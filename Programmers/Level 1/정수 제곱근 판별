@@ -1,0 +1,16 @@
+#include <string>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+long long solution(long long n) {
+    
+    double a = sqrt(n);
+    for(double i=0; i<=a; i++){
+        if( i == a ){
+            return (i+1) * (i+1);
+        }
+    }
+    return -1;
+}
