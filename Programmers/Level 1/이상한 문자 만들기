@@ -1,0 +1,25 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+string solution(string s) {
+    string answer = "";
+    int odd = 1;
+    
+    for(int i=0; i<s.size(); i++){
+        if(odd % 2 != 0 ){
+            s[i] = toupper(s[i]);
+        }
+        else{
+            s[i] = tolower(s[i]);
+        }
+        if(s[i] == ' '){
+            odd = 0;
+        }
+        odd++;    
+    }
+    
+    return s;
+}
