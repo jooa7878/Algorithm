@@ -1,0 +1,26 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+long long solution(long long n) {
+    long long answer = 0;
+    string num = "";
+    vector<int> v;
+    
+    while(n>0){
+        v.push_back(n%10);
+        n/=10;
+    }
+    
+    sort(v.begin(), v.end(), greater<int>());
+    
+    while(!(v.empty())) {
+        num += to_string(v.front());
+        v.erase(v.begin());
+    }
+          
+    answer = stol(num);
+    return answer;
+}
