@@ -1,0 +1,20 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(int n) {
+    string answer = "";
+    int i=1;
+    while(i<=n){
+        answer += "수";
+        i++;
+        if(i>n) break;
+        else{
+            answer +="박";
+            i++;
+        }
+    }
+    
+    return answer;
+}
