@@ -1,0 +1,76 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+const int MAX = 25;
+int N, M;
+bool visited[MAX][MAX];
+int dx[4] = { -1,1,0,0 };
+int dy[4] = { 0,0,-1,1 };
+int arr[MAX][MAX];
+
+int dfs(int idx, int jdx) 
+{
+	int cnt = 0;
+
+	visited[idx][jdx] = true;
+
+	for (int i = 0; i < 4; i++)
+	{
+		int x = idx + dx[i];
+		int y = jdx + dy[i];
+
+		if (x >= 0 && y >= 0 && x < N && y < N &&
+			arr[x][y] == 1 && !visited[x][y])
+		{
+			cnt++;
+			cnt += dfs(x, y);
+		}
+	}
+
+	return cnt;
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL); 
+	
+	cin >> N;
+
+	string str;
+	for (int i = 0; i < N; i++)
+	{
+		cin >> str;
+		for (int j = 0; j < N; j++) 
+			arr[i][j] = str[j] - '0';
+	}	
+
+	vector<int> vec;
+
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < N; j++)
+		{
+			if (arr[i][j] == 1 && !visited[i][j])
+			{
+				vec.push_back(dfs(i, j));
+			}
+		}
+	}
+
+	sort(vec.begin(), vec.end());
+
+	cout << vec.size() << '\n';
+
+	for (auto& a : vec)
+	{
+		cout << a + 1 << '\n';
+	}
+	
+}
