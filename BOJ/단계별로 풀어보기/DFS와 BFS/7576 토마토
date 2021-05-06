@@ -1,0 +1,91 @@
+#include <iostream>
+#include <string>
+#include <queue>
+#include <vector>
+
+using namespace std;
+
+const int MAX = 1001;
+int N, M, answer=-1;
+int arr[MAX][MAX];
+bool visited[MAX][MAX];
+int dx[4] = { -1, 1, 0, 0 };
+int dy[4] = { 0, 0, -1, 1 };
+vector<pair<int, int>> vec;
+
+
+void bfs() {
+	queue<pair<int, int>> q;
+
+	for (int i = 0; i < vec.size(); i++)
+	{
+		q.push(make_pair(vec[i].first, vec[i].second));
+	}
+
+	while (!q.empty())
+	{
+		int size = q.size();
+		while (size--) {
+			int nx = q.front().first;
+			int ny = q.front().second;
+			visited[nx][ny] = 1;
+			q.pop();
+
+			for (int i = 0; i < 4; i++)
+			{
+				int xx = nx + dx[i];
+				int yy = ny + dy[i];
+				if (xx >= 0 && yy >= 0 && xx < M && yy < N && arr[xx][yy] == 0 && !visited[xx][yy])
+				{
+					visited[xx][yy] = 1;
+					arr[xx][yy] = 1;
+					q.push(make_pair(xx, yy));
+				}
+			}
+		}
+
+		answer++;
+	}
+}
+
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N >> M;
+
+	for (int i = 0; i < M; i++)
+	{
+		for (int j = 0; j < N; j++)
+		{
+			cin >> arr[i][j];
+			if( arr[i][j] == 1)
+				vec.push_back(make_pair(i, j));
+		}
+	}
+
+	bfs();
+
+	bool flag = true;
+
+	for (int i = 0; i < M; i++)
+	{
+		for (int j = 0; j < N; j++)
+		{
+			if (arr[i][j] == 0)
+			{
+				flag = !flag;
+				break;
+			}
+		}
+		if (!flag) break;
+	}
+
+	if (flag)
+		cout << answer;
+	else
+		cout << -1;
+}
