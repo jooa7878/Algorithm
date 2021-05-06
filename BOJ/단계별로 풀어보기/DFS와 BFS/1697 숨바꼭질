@@ -1,0 +1,56 @@
+#include <iostream>
+#include <string>
+#include <queue>
+#include <vector>
+
+using namespace std;
+
+const int MAX = 100001;
+int N, K;
+bool visited[MAX];
+
+int bfs(int node) {
+	queue<int> q;
+	
+	q.push(node);
+
+	int cnt = 0;
+	while (!q.empty())
+	{
+		int size = q.size();
+		while (size--)
+		{
+			int num = q.front();
+			if (num == K) return cnt;
+			q.pop();
+
+			if (num > 0 && !visited[num - 1]) {
+				visited[num - 1] = 1;
+				q.push(num - 1);
+			}
+			if (num < MAX-1 &&!visited[num + 1]) {
+				visited[num + 1] = 1;
+				q.push(num + 1);
+			}
+			if (num <= MAX/2 && !visited[num * 2]) {
+				visited[num * 2] = 1;
+				q.push(num * 2);
+			}
+		}
+		cnt++;
+	}
+}
+
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N >> K;
+
+	visited[N] = 1;
+	cout << bfs(N);
+
+}
