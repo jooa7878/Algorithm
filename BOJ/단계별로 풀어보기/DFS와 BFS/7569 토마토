@@ -1,0 +1,101 @@
+#include <iostream>
+#include <string>
+#include <queue>
+#include <vector>
+
+using namespace std;
+
+const int MAX = 101;
+int N, M, H, answer = -1;
+int arr[101][MAX][MAX];
+bool visited[101][MAX][MAX];
+int dx[6] = { -1, 1, 0, 0, 0, 0, };
+int dy[6] = {0, 0, -1, 1, 0, 0 };
+int dh[6] = {0, 0, 0, 0, -1,1};
+vector<pair<pair<int, int>, int>> vec;
+
+
+void bfs() {
+	queue<pair<pair<int, int>, int>> q;
+
+	for (int i = 0; i < vec.size(); i++)
+	{
+		q.push(make_pair(make_pair(vec[i].first.first, vec[i].first.second), vec[i].second));
+	}
+
+	while (!q.empty())
+	{
+		int size = q.size();
+		while (size--) {
+			int nx = q.front().first.first;
+			int ny = q.front().first.second;
+			int nh = q.front().second;
+			visited[nx][ny][nh] = 1;
+			q.pop();
+
+			for (int i = 0; i < 6; i++)
+			{
+				int xx = nx + dx[i];
+				int yy = ny + dy[i];
+				int hh = nh + dh[i];
+				if (xx >= 0 && yy >= 0 && hh >= 0 &&  xx < M && yy < N && hh < H &&
+					arr[xx][yy][hh] == 0 && !visited[xx][yy][hh])
+				{
+					visited[xx][yy][hh] = 1;
+					arr[xx][yy][hh] = 1;
+					q.push(make_pair(make_pair(xx, yy), hh));
+				}
+			}
+		}
+
+		answer++;
+	}
+}
+
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N >> M >> H;
+
+	for (int k = 0; k < H; k++)
+	{
+		for (int i = 0; i < M; i++)
+		{
+			for (int j = 0; j < N; j++)
+			{
+				cin >> arr[i][j][k];
+				if (arr[i][j][k] == 1)
+					vec.push_back(make_pair(make_pair(i, j), k));
+			}
+		}
+	}
+
+	bfs();
+
+	bool flag = true;
+	for (int k = 0; k < H; k++)
+	{
+		for (int i = 0; i < M; i++)
+		{
+			for (int j = 0; j < N; j++)
+			{
+				if (arr[i][j][k] == 0)
+				{
+					flag = !flag;
+					break;
+				}
+			}
+			if (!flag) break;
+		}
+		if (!flag) break;
+	}
+
+	if (flag)
+		cout << answer;
+	else
+		cout << -1;
+}
