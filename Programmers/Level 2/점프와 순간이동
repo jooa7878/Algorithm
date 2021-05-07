@@ -1,0 +1,16 @@
+#include <iostream>
+#include <queue>
+
+using namespace std;
+
+int solution(int n)
+{
+    int answer = n % 2 == 0 ? 0 : 1 ;
+    
+    while (n) {
+		n /= 2;
+		answer += n % 2;
+	}
+    
+    return answer;
+}
