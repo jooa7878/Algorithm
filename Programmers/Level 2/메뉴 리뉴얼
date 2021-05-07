@@ -1,0 +1,51 @@
+/* 
+  재귀를 이용해 combination 구하는 방법
+*/
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+unordered_map<string, int> hash_map[11];
+int cnt[11] = {0};
+
+void comb(string str, int pos, string candidated){
+    
+    if(pos >= str.length()){
+        int len = candidated.length();
+        if(len > 1)
+        {
+            hash_map[len][candidated]++;
+            cnt[len] = max(cnt[len],hash_map[len][candidated]);
+        }
+        return;
+    }
+    
+    comb(str, pos+1, candidated + str[pos]);
+    comb(str, pos+1, candidated);
+}
+
+vector<string> solution(vector<string> orders, vector<int> course) {
+    vector<string> answer;
+
+    for(int i=0; i<orders.size(); i++)
+    {
+        sort(orders[i].begin(), orders[i].end());
+        comb(orders[i], 0, "");
+    }
+    
+    
+    for(int len : course)
+    {
+        for(auto& item : hash_map[len])
+        {
+            if(item.second > 1 && item.second ==  cnt[len]) answer.push_back(item.first);
+        }
+    }
+    
+    
+    sort(answer.begin(), answer.end());
+    return answer;
+}
