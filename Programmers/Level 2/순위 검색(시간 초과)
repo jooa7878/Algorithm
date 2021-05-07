@@ -1,0 +1,79 @@
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+vector<int> solution(vector<string> info, vector<string> query)
+{
+	unordered_map<int, vector<string>> cmp;
+	int size = query.size();
+	vector<int> answer(size);
+
+	for(int i=0; i<query.size(); i++)
+	{ 
+		string str = "";
+
+		for (int j = 0; j < query[i].length(); j++)
+		{
+			if (query[i].at(j) == ' ')
+			{
+				if (str != "and")
+					cmp[i].push_back(str);
+				str = "";
+				
+			}
+			else
+			{
+				str += query[i].at(j);
+			}
+		}
+		cmp[i].push_back(str);
+	}
+
+	for (int k = 0; k < cmp.size(); k++)
+	{
+		
+		int pos = 0;
+		for (int i = 0; i < info.size(); i++)
+		{
+			string str = "";
+			bool flag = true;
+			for (int j = 0; j < info[i].length(); j++)
+			{
+				if (info[i].at(j) == ' ')
+				{
+					
+					if (cmp[k].at(pos) != "-" && str != cmp[k].at(pos))
+					{
+						flag = false;
+						break;
+					}
+					pos++;
+					str = "";
+				}
+				else if (j == info[i].length() - 1)
+				{
+					str += info[i].at(j);
+					if (str != "-" && stoi(str) < stoi(cmp[k].at(pos)))
+					{
+						flag = false;
+						break;
+					}
+				}
+				else
+				{
+					str += info[i].at(j);
+				}
+			}
+
+			if (flag) {
+				answer[k]++;
+			}
+			pos = 0;
+		}
+	}
+	
+
+	return answer;
+}
