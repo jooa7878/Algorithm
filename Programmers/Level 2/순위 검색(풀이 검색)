@@ -1,0 +1,64 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+#include <sstream>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> solution(vector<string> info, vector<string> query)
+{
+	int size = query.size();
+	vector<int> answer(size);
+	map<string, vector<int>> m;
+
+	for (auto str : info)
+	{
+		stringstream ss(str);
+		string a, b, c, d;
+		int score;
+		ss >> a >> b >> c >> d >> score; // c++에서 string split하기엔 가장 좋은 방법인 것 같다.
+
+		for (int i = 0; i < 2; i++)
+		{
+			string first = i == 0 ? "-" : a;
+			for (int j = 0; j < 2; j++)
+			{
+				string second = j == 0 ? "-" : b;
+				for (int k = 0; k < 2; k++)
+				{
+					string third = k == 0 ? "-" : c;
+					for (int l = 0; l < 2; l++)
+					{
+						string fourth = l == 0 ? "-" : d;
+						string data = first + second + third + fourth;
+						m[data].push_back(score); // 16가지의 경우의 수에 대해 score 매핑
+					}
+				}
+			}
+		}
+	}
+
+	for (auto& a : m)
+	{
+		sort(a.second.begin(), a.second.end()); // 이분 탐색을 위한 score 정렬
+	}
+
+	int idx = 0;
+  for (auto str : query)
+	{
+		stringstream ss(str);
+		string a, b, c, d;
+		string AND = "";
+		int score;
+
+		ss >> a >> AND >> b >> AND >> c >> AND >> d >> score;
+
+		string res = a + b + c + d;
+
+		answer[idx] = m[res].end() - lower_bound(m[res].begin(), m[res].end(), score); // 이분 탐색 (가장 중요)
+		idx++;
+	}
+	return answer;
+}
