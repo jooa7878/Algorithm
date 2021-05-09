@@ -1,0 +1,25 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+long solution(int num) {
+    long answer = 0 ;
+    long long copy_num = num;
+    while(copy_num != 1){
+        if(copy_num % 2 == 0){
+            copy_num /= 2;
+            answer++;
+        }
+        else{
+            copy_num *=3;
+            copy_num++;
+            answer++;
+        }
+       
+        if(answer >= 500) return -1;
+    }
+    return answer;
+    
+    
+}
