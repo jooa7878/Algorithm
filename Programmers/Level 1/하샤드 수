@@ -1,0 +1,16 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+bool solution(int x) {
+    bool answer = true;
+    int copy = x;
+    int num = 0;
+    while(x > 0){
+        num += x % 10 ;
+        x /= 10;
+    }
+    if(copy % num != 0 ) return false; 
+    return answer;
+}
