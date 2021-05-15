@@ -1,0 +1,78 @@
+#include <iostream>
+#include <string>
+#include <queue>
+#include <sstream>
+#include <iomanip>
+
+using namespace std;
+
+const int MAX = 301;
+int T, N;
+int dx[8] = {-1,-2,-2,-1, 1,2,1,2};
+int dy[8] = {-2,-1,1,2,-2,-1,2,1};
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> T;
+
+	for (int i = 0; i < T; i++)
+	{
+		cin >> N;
+
+		int arr[MAX][MAX] = { 0, };
+		bool visited[MAX][MAX] = { 0, };
+		int answer = 0;
+		queue<pair<pair<int, int>, int>> q;
+		bool flag = true;
+
+		for (int j = 0; j < 2; j++)
+		{
+			int x, y;
+			cin >> x >> y;
+			if (q.empty()) {
+				visited[x][y] = 1;
+				q.push(make_pair(make_pair(x, y),0));
+			}
+			if(arr[x][y] == 0 )arr[x][y] = 1;
+			else {
+				cout << 0 << '\n';
+				flag = !flag;
+			}
+		}
+		if (!flag) continue;
+
+		while (!q.empty())
+		{
+			int nx = q.front().first.first;
+			int ny = q.front().first.second;
+			int step = q.front().second;
+			q.pop();
+			answer++;
+			for (int i = 0; i < 8; i++)
+			{
+				int x = nx + dx[i];
+				int y = ny + dy[i];
+
+				if (x >= 0 && y >= 0 && x < N && y < N && !visited[x][y])
+				{
+					if (arr[x][y] == 0)
+					{
+						visited[x][y] = 1;
+						q.push(make_pair(make_pair(x, y),step + 1));
+					}
+					else
+					{
+						cout << step + 1 << '\n';
+						flag = !flag;
+						break;
+					}
+				}
+			}
+			if (!flag) break;
+		}
+	}
+}
