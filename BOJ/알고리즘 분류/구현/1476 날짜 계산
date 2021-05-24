@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+#include <queue>
+#include <sstream>
+#include <iomanip>
+
+using namespace std;
+
+int E, S, M, answer;
+
+void solution() {
+
+	int e = 0;
+	int s = 0;
+	int m = 0;
+
+	while (true)
+	{
+		answer++;
+		e++; s++; m++;
+		if (e == 16) e = 1;
+		if (s == 29) s = 1;
+		if (m == 20) m = 1;
+		if (e == E && s == S && m == M) break;
+	}
+
+	cout << answer;
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> E >> S >> M;
+
+	solution();
+}
