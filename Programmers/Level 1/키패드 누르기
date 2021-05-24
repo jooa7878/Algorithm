@@ -1,0 +1,76 @@
+#include <string>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+int find (int n_num, int d_num){  
+    
+    int arr[4][3] ={
+        {1,2,3},
+        {4,5,6},
+        {7,8,9},
+        {11, 0, 12}
+    };
+    
+    int n_col, n_row; // 현재 행, 열
+    int d_col, d_row; // 목적지 행, 열
+    
+    for(int i=0; i<4; i++){
+        for(int j=0; j<3; j++){
+            if(arr[i][j] == n_num){
+                n_col = i;
+                n_row = j;              
+            } 
+            if(arr[i][j] == d_num){
+                d_col = i;
+                d_row = j;
+            }
+        }
+    }
+    
+    return abs(n_col - d_col) + abs(n_row - d_row);
+}
+
+string solution(vector<int> numbers, string hand) {
+    string answer = "";
+    int left = 11;
+    int right = 12;
+    
+    for(int i=0; i<numbers.size(); i++){
+        if(numbers[i] == 1 || numbers[i] == 4 || numbers[i] == 7){ // 왼손
+            answer.append("L");
+            left = numbers[i];
+        }
+        else if (numbers[i] == 3 || numbers[i] == 6 || numbers[i] == 9) {// 오른 손
+            answer.append("R");
+            right = numbers[i];
+        }
+        else{
+            if(hand == "left"){ // 왼손잡이
+                if(find(left, numbers[i]) > find(right, numbers[i])){
+                    answer.append("R");
+                    right = numbers[i];
+                }
+                else{
+                    answer.append("L");
+                    left = numbers[i];    
+                
+                }
+            }
+            else{ // 오른손잡이
+                if(find(left, numbers[i]) < find(right, numbers[i])){
+                    answer.append("L");
+                    left = numbers[i];    
+                }
+                else{
+                    answer.append("R");
+                    right = numbers[i];                       
+                }
+            }
+                        
+        }
+            
+    }
+    
+    return answer;
+}
