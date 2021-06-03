@@ -1,0 +1,34 @@
+#include <string>
+#include <vector>
+#include <stack>
+
+
+using namespace std;
+
+string solution(string number, int k) {
+    string answer = "";
+    
+    int length = number.length();
+    int N = length - k; // 4
+    
+    while(N > 0){ 
+        int max = -1;
+        int check = -1;
+        
+        for(int i = 0; i <= k ; i++){
+            if(number[i] > max){
+                max = number[i];
+                check = i;                
+            }
+        }
+        
+        answer += max;
+        number = number.substr(check+1); 
+       
+        N--;
+        k = number.length() - N;     
+    }
+    
+    
+    return answer;
+}
