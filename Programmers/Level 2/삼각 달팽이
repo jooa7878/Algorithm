@@ -1,0 +1,61 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+
+vector<int> solution(int n) {
+    vector<int> answer;
+    
+    int arr[n][n];
+    
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            arr[i][j] = -1;
+        }
+    }
+    
+    int equation = ((n * (n + 1)) / 2);
+    int i = 0;
+	int j = 0;
+	int num = 1;
+	arr[i][j] = num++;
+    
+    while(equation >= num){
+        for(; i<n-1; i++){
+            if(arr[i][j] == -1){
+                arr[i][j] = num;
+                num++;
+            }
+            if (arr[i + 1][j] != -1) {
+				break;
+			}
+        }
+        
+        for(; j<n; j++){
+            if(arr[i][j] == -1){
+                arr[i][j] = num;
+                num++;
+            }
+            if (arr[i][j+1] != -1) {
+				break;
+			}
+        } 
+        while (true) {
+			if (arr[i-1][j-1] != -1) break;
+			arr[i-1][j-1] = num;
+			i--;
+			j--;
+			num++;
+		}
+    }
+    
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++)
+            if(arr[i][j] != -1) answer.push_back(arr[i][j]);
+    }
+    
+    
+    
+    return answer;
+}
