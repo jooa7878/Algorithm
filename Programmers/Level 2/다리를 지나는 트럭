@@ -1,0 +1,34 @@
+#include <string>
+#include <vector>
+#include <utility>
+
+using namespace std;
+
+int solution(int bridge_length, int weight, vector<int> truck_weights) {
+    int answer = 0;
+    int n_weight = 0;
+    vector<pair<int, int>> v;
+    int i = 0;
+    
+    while(true){
+        
+        if(!truck_weights.empty() && n_weight + truck_weights[0] <= weight ){
+            v.push_back(make_pair(truck_weights[0], 0));
+            n_weight += truck_weights[0];
+            truck_weights.erase(truck_weights.begin());
+        }
+        for(int i=0; i<v.size(); i++){
+            v[i].second++;
+        }
+        if(v[0].second == bridge_length){
+            n_weight -= v[0].first;
+            v.erase(v.begin());
+        }
+        answer++;
+        if(truck_weights.size() == 0 && v.empty()){
+            break;
+        }
+    }
+    
+    return ++answer;
+}
