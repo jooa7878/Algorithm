@@ -1,0 +1,59 @@
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+bool is_exist(string str, vector<string> vec)
+{
+	for (int i = 0; i < vec.size(); i++)
+	{
+		if (str == vec[i])
+			return true;
+	}
+
+	return false;
+}
+
+vector<int> solution(int n, vector<string> words) {
+	vector<int> answer(2);
+	vector<string> list;
+
+	int order = 1;
+	int idx = 0;
+	int k = 0;
+
+	while (k < words.size())
+	{
+		// 한 글자인 경우, 앞사람이 말한 단어의 마지막 문자로 시작하지 않는 경우, 이전에 등장했던 단어가 사용된 경우
+		if (words[k].length() == 1 || !list.empty() && list.back().at(list.back().length() - 1) != words[k].at(0) ||
+			is_exist(words[k], list))
+			break;
+
+		list.push_back(words[k]);
+
+		idx++;
+		if (idx == n)
+		{
+			idx = 0;
+			order++;
+		}
+
+
+		k++;
+	}
+
+	if (k == words.size())
+	{
+		answer[0] = 0;
+		answer[1] = 0;
+	}
+
+	else
+	{
+		answer[0] = ++idx;
+		answer[1] = order;
+	}
+
+	return answer;
+}
