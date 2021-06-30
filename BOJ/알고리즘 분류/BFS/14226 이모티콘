@@ -24,7 +24,6 @@ int solution()
 		int T = q.front().first;
 		int E = q.front().second.first;
 		int C = q.front().second.second;
-		visited[E][C] = true;
 
 		q.pop();
 
@@ -43,14 +42,17 @@ int solution()
 			if (E != C && !visited[E][E])
 			{
 				q.push(make_pair(T + 1, make_pair(E, E)));
+				visited[E][E] = true;
 			}
 			if (E + C < N + 2 && !visited[E + C][C])
 			{
 				q.push(make_pair(T + 1, make_pair(E + C, C)));
+				visited[E + C][C] = true;
 			}
 			if (!visited[E - 1][C] && E > 1)
 			{
 				q.push(make_pair(T + 1, make_pair(E - 1, C)));
+				visited[E - 1][C] = true;
 			}
 		}
 	}
