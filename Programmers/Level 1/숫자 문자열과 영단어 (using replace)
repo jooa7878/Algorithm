@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(string s) {
+    int answer = 0;
+    
+    string str = s;
+    
+    while(str.find("zero") != string::npos)
+        str.replace(str.find("zero"), 4, "0");
+    while(str.find("one") != string::npos)
+        str.replace(str.find("one"), 3, "1");
+    while(str.find("two") != string::npos)
+        str.replace(str.find("two"), 3, "2");
+    while(str.find("three") != string::npos)
+        str.replace(str.find("three"), 5, "3");
+    while(str.find("four") != string::npos)
+        str.replace(str.find("four"), 4, "4");
+    while(str.find("five") != string::npos)
+        str.replace(str.find("five"), 4, "5");
+    while(str.find("six") != string::npos)
+        str.replace(str.find("six"), 3, "6");
+    while(str.find("seven") != string::npos)
+        str.replace(str.find("seven"), 5, "7");
+    while(str.find("eight") != string::npos)
+        str.replace(str.find("eight"), 5, "8");
+    while(str.find("nine") != string::npos)
+        str.replace(str.find("nine"), 4, "9");
+    
+    answer = stoi(str);
+    
+    return answer;
+}
