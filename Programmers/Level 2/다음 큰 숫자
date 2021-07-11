@@ -1,0 +1,30 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int to_binary(int n){
+    int check = 0;
+    
+    while(n >0 ){
+        if(n % 2 !=0 )
+            check++;
+        n /= 2;
+    }
+   
+    return check;
+}
+
+int solution(int n) {
+    int answer = 0;
+    
+    int temp = to_binary(n);
+    for(int i=n+1; ; i++){
+        if(to_binary(i) == temp){
+            answer = i;    
+            break;
+        }
+    }
+    
+    return answer;
+}
