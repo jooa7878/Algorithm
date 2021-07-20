@@ -1,0 +1,53 @@
+#include <iostream>
+
+using namespace std;
+
+int N, answer;
+int arr[16];
+bool visited[16];
+
+bool check(int node)
+{
+	for (int i = 0; i < node; i++)
+	{
+		if (arr[i] == arr[node] || abs(arr[node] - arr[i]) == node - i)
+			return false;
+	}
+
+	return true;
+}
+
+void dfs(int level)
+{
+	// (X,Y) (A,B)가 대각선이라면 abs(X-A) == abs(Y-B)
+	if (level == N) 
+		answer++;
+	else
+	{
+		for (int i = 0; i < N; i++)
+		{
+			arr[level] = i;
+			if (check(level))
+				dfs(level + 1);
+		}
+	}
+
+
+}
+
+void solution() {
+
+	dfs(0);
+
+	cout << answer;
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+
+	solution();
+}
