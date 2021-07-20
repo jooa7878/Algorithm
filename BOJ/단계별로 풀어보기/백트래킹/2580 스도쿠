@@ -1,0 +1,90 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int arr[9][9];
+vector<pair<int, int>> zero;
+int zero_count;
+
+bool check(int num, int xpos, int ypos) {
+
+	for (int i = 0; i < 9; i++)
+	{
+		if (arr[i][xpos] == num  || arr[ypos][i] == num )
+		{
+			return false;
+		}
+	}
+
+	int y_begin = ypos - (ypos % 3);	
+	int x_begin = xpos - (xpos % 3);
+
+
+	for (int i=y_begin; i<y_begin+3; i++)
+	{
+		for (int j = x_begin; j < x_begin+3; j++)
+		{
+			if (arr[i][j] == num) return false;
+		}
+	}
+	
+	return true;
+}
+
+void dfs(int N) {
+
+	if (N == zero_count)
+	{
+		for (int i = 0; i < 9; i++)
+		{
+			for (int j = 0; j < 9; j++)
+			{
+				cout << arr[i][j] << ' ';
+			}
+			cout << '\n';
+		}
+
+		exit(0);
+	}
+	
+	int y = zero[N].first;
+	int x = zero[N].second;
+
+	for (int i = 1; i <= 9; i++)
+	{
+		if (check(i, x, y))
+		{
+			arr[y][x] = i;
+			dfs(N + 1);
+			arr[y][x] = 0;
+		}
+	}
+}
+
+
+void solution() {
+
+	dfs(0);
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			cin >> arr[i][j];
+			if (arr[i][j] == 0)
+			{
+				zero.push_back(make_pair(i, j));
+				zero_count++;
+			}
+		}
+	}
+
+	solution();
+}
