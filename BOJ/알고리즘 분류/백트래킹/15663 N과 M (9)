@@ -1,0 +1,59 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+
+using namespace std;
+
+int N, M;
+int ans[9];
+int arr[9];
+set<string> s;
+bool visited[9];
+
+void dfs(int depth, string str) {
+
+	if (depth == M)
+	{
+		if (s.find(str) == s.end())
+		{
+			s.insert(str);
+			cout << str << '\n';
+			str = "";
+		}
+		return;
+	}
+
+	for (int i = 1; i <= N; i++)
+	{
+		if (!visited[i])
+		{
+			visited[i] = true;
+			dfs(depth + 1, str + to_string(arr[i]) + ' ');
+			visited[i] = false;
+		}
+
+	}
+	
+}
+
+void solution() {
+	dfs(0, "");
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N >> M;
+
+	for (int i = 1; i <= N; i++)
+	{
+		cin >> arr[i];
+	}	
+
+	sort(arr + 1, arr + N + 1);
+
+	solution();
+}
