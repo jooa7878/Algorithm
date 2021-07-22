@@ -1,0 +1,41 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int N, answer;
+int arr[9];
+
+void solution() {
+
+	sort(arr + 1, arr + N + 1);
+
+	do {
+		int num = 0;
+
+		for (int i = 1; i < N; i++)
+		{
+			num += abs( arr[i] - arr[i+1]);
+		}
+
+		if (num > answer) answer = num;
+
+	}while(next_permutation(arr + 1, arr + N + 1));
+
+	cout << answer;
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+
+	for (int i = 1; i <= N; i++)
+	{
+		cin >> arr[i];
+	}
+
+	solution();
+}
