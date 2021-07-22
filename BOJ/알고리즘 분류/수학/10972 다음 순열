@@ -1,0 +1,64 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int N;
+int arr[10001];
+int copyArr[10001];
+
+void dfs(int depth) {
+
+}
+
+void solution() {
+
+	int idx = 0;
+	bool flag = true;
+
+	do {
+
+		if (idx) 
+		{
+			for (int i = 1; i <= N; i++)
+			{
+				cout << copyArr[i] << ' ';
+			}
+
+			flag = false;
+			break;
+		}
+
+		for (int i = 1; i <= N; i++)
+		{
+			if (arr[i] != copyArr[i])
+			{
+				flag = false;
+				break;
+			}
+		}
+		if (flag)
+		{
+			idx++;
+		}
+	} while (next_permutation(copyArr + 1, copyArr + N + 1));
+
+	if (flag)
+		cout << -1;
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+
+	for (int i = 1; i <= N; i++)
+	{
+		cin >> arr[i];
+		copyArr[i] = arr[i];
+	}
+
+	solution();
+}
