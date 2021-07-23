@@ -1,0 +1,65 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int K;
+vector<int> S(14);
+int arr[14];
+bool visited[14];
+
+void dfs(int depth, int node, vector<int> vec){
+
+	if (depth == 6)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			cout << arr[i] << ' ';
+		}
+		cout << '\n';
+
+		return;
+	}
+
+	for (int i = node; i <= K; i++)
+	{
+		if (!visited[i])
+		{
+			visited[i] = true;
+			arr[depth] = vec[i];
+			dfs(depth + 1, i, vec);
+			visited[i] = false;
+		}
+	}
+
+}
+
+void solution() {
+
+	for (int i = 1; i <= K; i++)
+	{
+		cin >> S[i];
+	}
+
+
+	dfs(0, 1, S);
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	while(true)
+	{
+		cin >> K;
+
+		if (K == 0) break;
+
+		solution();
+
+		cout << '\n';
+	}
+	
+}
