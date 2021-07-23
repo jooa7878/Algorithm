@@ -1,0 +1,77 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int L, C;
+char arr[16];
+char ans[16];
+bool visited[30];
+vector<string> vec;
+
+void dfs(int depth, int node){
+	if (depth == L)
+	{
+		string str = "";
+
+		int vowel = 0;
+		int consonant = 0;
+
+		for (int i = 0; i < L; i++)
+		{
+			if (ans[i] == 'a' || ans[i] == 'e' || ans[i] == 'i' || ans[i] == 'o'
+				|| ans[i] == 'u') 
+				vowel++;
+			else
+				consonant++;
+			str += ans[i];
+		}
+
+		if (vowel > 0 && consonant > 1) 
+		{
+			vec.push_back(str);
+		}
+		return;
+	}
+
+	for (int i = node; i < C; i++)
+	{
+		if (!visited[arr[i] - 97])
+		{
+			visited[arr[i] - 97] = true;
+			ans[depth] = arr[i];
+			dfs(depth + 1, i);
+			visited[arr[i] - 97] = false;
+		}
+	}
+	
+}
+
+void solution() {
+	dfs(0, 0);
+
+
+	for (auto & a : vec)
+	{
+		cout << a << '\n';
+	}	
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> L >> C;
+
+	for (int i = 0; i < C; i++)
+	{
+		cin >> arr[i];
+	}
+
+	sort(arr, arr + C);
+
+	solution();
+}
