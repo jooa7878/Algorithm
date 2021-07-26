@@ -1,0 +1,102 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int N, answer = 100000;
+int arr[21][21];
+bool visited[21];
+
+/*
+5
+0 1 1 1 1
+1 0 1 1 1
+1 1 0 1 1
+1 1 1 0 1
+1 1 1 1 0
+*/
+
+void dfs(int depth, int node) {
+	if (depth >= N / 2 && depth < N)
+	{
+	
+		vector<int> startTeam;
+		vector<int> linkTeam;
+
+		int startTeamScore = 0;
+		int linkTeamScore = 0;
+
+		for (int i = 0; i < N; i++)
+		{
+			if (visited[i])
+			{
+				startTeam.push_back(i);
+				continue;
+			}
+			linkTeam.push_back(i);
+		}
+
+
+		for (int i = 0; i < startTeam.size(); i++)
+		{
+			for (int j = i+1; j < startTeam.size(); j++)
+			{
+				startTeamScore += arr[startTeam[i]][startTeam[j]] + arr[startTeam[j]][startTeam[i]];
+			}
+		}
+
+		for (int i = 0; i < linkTeam.size(); i++)
+		{
+			for (int j = i + 1; j < linkTeam.size(); j++)
+			{
+				linkTeamScore += arr[linkTeam[i]][linkTeam[j]] + arr[linkTeam[j]][linkTeam[i]];
+			}
+		}
+
+		if (answer > abs(startTeamScore - linkTeamScore))
+			answer = abs(startTeamScore - linkTeamScore);
+
+		return;
+	}
+
+	for (int i = node; i < N; i++)
+	{
+		if (!visited[i])
+		{
+			visited[i] = true;
+			dfs(depth + 1, i);
+			visited[i] = false;
+		}
+	}
+	
+}
+
+void solution() {
+
+	dfs(0, 0);
+	
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < N; j++)
+		{
+			cin >> arr[i][j];
+		}
+	}
+
+	solution();
+
+	cout << answer;
+}
+
+
