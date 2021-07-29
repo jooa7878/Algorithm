@@ -1,0 +1,142 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int N;
+char arr[11];
+int ans[11];
+int greaterArr[11];
+int lessArr[11];
+bool visited[11];
+bool printedMax;
+
+
+void dfsMax(int depth){
+
+	if (depth == N + 2)
+	{
+
+		bool flag = true;
+		for (int i = 1; i < depth - 1; i++)
+		{
+			if (arr[i] == '<')
+			{
+				if (ans[i] > ans[i + 1])
+				{
+					flag = false;
+					break;
+				}
+				continue;
+			}
+			if (ans[i] < ans[i + 1])
+			{
+				flag = false;
+				break;
+			}
+		}
+
+		if (flag && !printedMax)
+		{
+			printedMax = true;
+			for (int i = 1; i < depth; i++)
+			{
+				cout << ans[i];
+			}
+			cout << '\n';
+		}
+
+		return;
+	}
+
+	for (int i = 1; i <= N+1; i++)
+	{
+		if (!visited[i])
+		{
+			visited[i] = true;
+			ans[depth] = greaterArr[i];
+			dfsMax(depth + 1);
+			visited[i] = false;
+		}
+	}
+
+}
+
+void dfsMin(int depth)
+{
+	if (depth == N + 2)
+	{
+		bool flag = true;
+
+		for (int i = 1; i < depth - 1; i++)
+		{
+			if (arr[i] == '<')
+			{
+				if (ans[i] > ans[i + 1])
+				{
+					flag = false;
+					break;
+				}
+				continue;
+			}
+			if (ans[i] < ans[i + 1])
+			{
+				flag = false;
+				break;
+			}
+		}
+
+		if (flag)
+		{	
+			for (int i = 1; i < depth; i++)
+			{
+				cout << ans[i];
+			}
+			cout << '\n';
+			exit(0);
+		}
+
+		return;
+	}
+
+	for (int i = 1; i <= N + 1; i++)
+	{
+		if (!visited[i])
+		{
+			visited[i] = true;
+			ans[depth] = lessArr[i-1];
+			dfsMin(depth + 1);
+			visited[i] = false;
+		}
+	}
+
+}
+
+void solution(){
+	dfsMax(1);
+	dfsMin(1);
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+
+	for (int i = 1; i <= N; i++)
+	{
+		cin >> arr[i];
+	}
+
+	for (int i = 1; i <= 10; i++)
+	{
+		greaterArr[i] = 10 - i;
+		lessArr[i] = i;
+	}
+
+	solution();
+}
