@@ -1,0 +1,93 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int N, max_answer = -1000000001, min_answer = 1000000001;
+int arr[12];
+int ans[12];
+vector<int> oper;
+bool visited[12];
+
+/*
+	1 = 더하기
+	2 = 빼기
+	3 = 곱하기
+	4 = 나누기
+*/
+
+void dfs(int depth){
+
+	if (depth == N)
+	{
+		int sum = arr[1];
+		for (int i = 1; i < N; i++)
+		{
+			switch (ans[i])
+			{
+				case 1 :
+					sum += arr[i + 1];
+					break;
+				case 2 :
+					sum -= arr[i + 1];
+					break;
+				case 3 :
+					sum *= arr[i + 1];
+					break;
+				case 4 :
+					sum /= arr[i + 1];
+					break;
+			}
+		}
+		if (sum > max_answer) max_answer = sum;
+		if (min_answer > sum) min_answer = sum;
+
+		return;
+	}
+
+	for (int i = 1; i < N; i++)
+	{
+		if (!visited[i])
+		{
+			visited[i] = true;
+			ans[depth] = oper[i-1];
+			dfs(depth + 1);
+			visited[i] = false;
+		}
+	}
+}
+
+void solution(){
+	dfs(1);
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+
+	for (int i = 1; i <= N; i++)
+	{
+		cin >> arr[i];
+	}
+
+	for (int i = 1; i <= 4; i++)
+	{
+		int num;
+		cin >> num;
+		for (int j = 1; j <= num; j++)
+		{
+			oper.push_back(i);
+		}
+	}
+
+	solution();
+
+	cout << max_answer << '\n';
+	cout << min_answer << '\n';
+}
