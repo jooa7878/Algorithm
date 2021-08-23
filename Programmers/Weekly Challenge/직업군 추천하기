@@ -1,0 +1,46 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <algorithm>
+
+using namespace std;
+
+string solution(vector<string> table, vector<string> languages, vector<int> preference) {
+    string answer = "";
+    int max = 0;
+    int ans = 0;
+    
+    for(int i=0; i<table.size(); i++)
+    {
+        stringstream ss(table[i]);
+        vector<string> vec(5);
+        string name;
+        ss >> name >> vec[0] >> vec[1] >> vec[2] >> vec[3] >> vec[4];
+        
+        int score = 0;
+        
+        for(int j=0; j<languages.size(); j++)
+        {
+            auto it = find(vec.begin(), vec.end(), languages[j]);
+          
+            if(it != vec.end())
+            {
+                score += (5 - (it-vec.begin())) * preference[j];
+            }
+        }
+        
+        if(score >= max)
+        {
+            if( score == max )
+            {
+                answer = name[0] > answer[0] ? answer : name;
+                continue;
+            }
+            
+            answer = name;
+        }
+    }
+    
+    return answer;
+}
