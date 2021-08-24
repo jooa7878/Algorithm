@@ -1,0 +1,67 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+
+using namespace std;
+
+int K, N;
+
+int bSearch(vector<long long>& vec) {
+
+	int answer = 0;
+	long long left = 0;
+	long long right = vec[K - 1];
+	long long mid = right % 2 == 0 ? (right + left) / 2 : ((right + left)  / 2) + 1;
+	
+
+	while (mid <= right && left <right)
+	{
+		int cnt = 0;
+		for (int i = 0; i < K; i++)
+		{
+			cnt += (vec[i] / mid);
+		}
+
+		if(cnt >=N)
+		{ 
+			answer = mid;
+			left = mid + 1;
+			if ((right + left) / 2 == 0)
+			{
+				mid = (right + left) / 2 > right ? right : (right + left) / 2;
+			}
+			else
+			{
+				mid = (right + left) / 2 > right ? right : ((right + left) / 2) + 1;
+			}
+
+		}
+		else if (cnt < N)
+		{
+			right = mid;
+			mid = (right + left) / 2 > right ? right : (right + left) / 2;
+		}	
+	}
+
+	return answer;
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+
+	cin >> K >> N;
+	vector<long long> vec(K);
+
+	for (int i = 0; i < K; i++)
+	{
+		cin >> vec[i];
+	}
+
+	sort(vec.begin(), vec.end());
+
+
+	cout << bSearch(vec);
+}
