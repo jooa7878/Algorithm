@@ -1,0 +1,55 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+
+using namespace std;
+
+int N, M;
+
+bool bSearch(vector<long long>& vec, int num) {
+	int len = vec.size();
+	long long left = 0;
+	long long right = len - 1;
+	long long mid = len / 2;
+
+	if (num < vec[left] || num > vec[right]) return 0;
+
+	while (left < right)
+	{
+		if (vec[mid] > num)
+		{
+			right = mid;
+		}
+		else if (vec[mid] < num)
+		{
+			left = mid + 1;
+		}
+		else 
+		{
+			break;
+		}
+		mid = (right + left) / 2;
+	}
+
+	return vec[mid] == num ? 1 : 0;
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+
+	cin >> N;
+	vector<long long> A(N);
+
+	for (int i = 0; i < N; i++) cin >> A[i];
+
+	cin >> M;
+	vector<long long> B(M);
+	for (int i = 0; i < M; i++) cin >> B[i];
+
+	sort(A.begin(), A.end());
+
+	for (int i = 0; i < M; i++) cout << bSearch(A, B[i]) << '\n';
+}
