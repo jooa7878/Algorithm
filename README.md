@@ -1,4 +1,4 @@
-# Algorithm_with_Cpp
+# Algorithm_Repository (Using cpp & JavaScript)
 
 
 Greedy
